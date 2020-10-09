@@ -4,11 +4,11 @@ COM S 319 Project Proposal
 Group 2
 
 Group members: Ehren Fox, Alec Meyer, Brett Nashleanas, Brendan Yeong
-**Introduction
-Project Title: 
-Go (game)
+**Introduction**
+**Project Title:** 
+*Go (game)*
 
-Description:**
+**Description:**
 *Go is an abstract strategy board game for two players(black or white), in which the aim is to surround more territory than the opponent. It is a game that was invented in China 2,500 years ago and is believed to be the oldest board game in history. Today, it currently has over 20 million players.*
 
 **Objective/ Goals:**
