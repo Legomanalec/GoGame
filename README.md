@@ -3,7 +3,7 @@
 COM S 319 Project Proposal
 Group 2
 
-Group members: Ehren Fox, Alec Meyer, Brett Nashleanas, Brendan Yeong
+**Group members:** Ehren Fox, Alec Meyer, Brett Nashleanas, Brendan Yeong
 
 **Introduction**
 **Project Title:** 
