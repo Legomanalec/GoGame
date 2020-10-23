@@ -2,7 +2,6 @@ import React from 'react';
 import {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Welcome from './components/Welcome/Welcome'
 import { Redirect } from 'react-router-dom'
 import Routes from './routes'
 
@@ -22,17 +21,19 @@ class App extends Component {
       <div className="off-canvas-wrapper-inner" data-off-canvas-wrapper>
       <div className="off-canvas-content" data-off-canvas-content>
       <div className="App">
-            <header className="App-header">
-            <Routes name={this.state.appName}/>
-              <img src={logo} className="App-logo" alt="logo" />
 
-              <a
-                className="App-link"
-                href="https://reactjs.org"
+            <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <Routes name={this.state.appName}/>
+
+
+              <br></br><a
+                className="myButton"
+                href="https://en.wikipedia.org/wiki/Go_(game)"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Learn React
+                Read About GO
               </a>
             </header>
           </div>

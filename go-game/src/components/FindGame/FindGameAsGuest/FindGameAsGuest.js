@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './FindGameAsGuest.css';
 
-class FindGameAsGuest extends React.Component {
+class FindGameAsGuest extends Component {
 render() {
 return (
 <div className="row">
