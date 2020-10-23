@@ -16,11 +16,6 @@ class Login extends Component {
 
   }
 
-
-
-
-
-
   render() {
 
      if (this.state.redirectToReferrer) {
