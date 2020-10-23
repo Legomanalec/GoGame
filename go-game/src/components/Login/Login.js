@@ -12,10 +12,12 @@ class Login extends Component {
      username: '',
      password: '',
      redirect: false,
+     register: false
     };
 
     this.handleLogin = this.login.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.handleRegister = this.register.bind(this);
   }
 
 
@@ -26,6 +28,10 @@ class Login extends Component {
     if(resultUsernameCheck && resultPasswordCheck){
       this.setState({redirect: true});
     }
+  }
+
+  register() {
+    this.setState({register: true});
   }
 
   onChange(e){
@@ -45,21 +51,24 @@ class Login extends Component {
     if (this.state.redirect){
       return (<Redirect to={'/home'}/>)
     }
+    if(this.state.register){
+      return (<Redirect to={'/signup'}/>)
+    }
 
      return (
       <div className="row" id="Body">
         <div className="medium-5 columns left">
         <h4>Login</h4>
-        <form className="form-style-4"onSubmit={this.handleLogin}>
+        <form className="form-style-4">
           <label>Username</label><br></br>
           <input type="text" id="username" name="username" placeholder="Username" onChange={this.handleChange}/><br></br><br></br>
 
           <label>Password</label><br></br>
           <input type="password" id="password" name="password"  placeholder="Password" onChange={this.handleChange}/><br></br><br></br>
 
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" onSubmit={this.handleLogin}/>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="button" value="Register" onClick="/signup" />
+          <input type="button" value="Register" onClick={this.handleRegister}/>
         </form><br></br>
 
         </div>
