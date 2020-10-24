@@ -24,7 +24,7 @@ class Login extends Component {
   login() {
     var resultUsernameCheck = this.alphaNumCheck(document.getElementById("username").value);
     var resultPasswordCheck = this.alphaNumCheck(document.getElementById("password").value);
-
+    console.log(resultUsernameCheck);
     if(resultUsernameCheck && resultPasswordCheck){
       this.setState({redirect: true});
     }
@@ -49,14 +49,14 @@ class Login extends Component {
 
   render() {
     if (this.state.redirect){
-      return (<Redirect to={'/home'}/>)
+      return (<Redirect to={'/profile'}/>)
     }
     if(this.state.register){
       return (<Redirect to={'/signup'}/>)
     }
 
      return (
-      <div className="row" id="Body">
+      <div className="row" id="Body" onSubmit={this.handleLogin}>
         <div className="medium-5 columns left">
         <h4>Login</h4>
         <form className="form-style-4">
@@ -66,7 +66,7 @@ class Login extends Component {
           <label>Password</label><br></br>
           <input type="password" id="password" name="password"  placeholder="Password" onChange={this.handleChange}/><br></br><br></br>
 
-          <input type="submit" value="Submit" onSubmit={this.handleLogin}/>
+          <input type="submit" value="Submit"/>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <input type="button" value="Register" onClick={this.handleRegister}/>
         </form><br></br>

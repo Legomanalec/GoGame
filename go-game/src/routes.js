@@ -6,7 +6,7 @@ import Home from '././components/Home/Home';
 import Login from '././components/Login/Login';
 import Signup from '././components/Signup/Signup';
 import FindGameAsGuest from '././components/FindGame/FindGameAsGuest/FindGameAsGuest';
-
+import Profile from '././components/Profile/Profile';
 
 const Routes = () => (
   <BrowserRouter >
@@ -16,6 +16,7 @@ const Routes = () => (
           <Route path="/login" component={Login}/>
           <Route path="/signup" component={Signup}/>
           <Route path="/findGameAsGuest" component={FindGameAsGuest}/>
+          <Route pate="/profile" component={Profile}/>
       </Switch>
   </BrowserRouter>
 );
