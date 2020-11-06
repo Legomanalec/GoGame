@@ -7,6 +7,8 @@ import Login from '././components/Login/Login';
 import Signup from '././components/Signup/Signup';
 import FindGameAsGuest from '././components/FindGame/FindGameAsGuest/FindGameAsGuest';
 import Profile from '././components/Profile/Profile';
+import Game from '././components/Game1/Game';
+
 
 const Routes = () => (
   <BrowserRouter >
@@ -16,7 +18,8 @@ const Routes = () => (
           <Route path="/login" component={Login}/>
           <Route path="/signup" component={Signup}/>
           <Route path="/findGameAsGuest" component={FindGameAsGuest}/>
-          <Route pate="/profile" component={Profile}/>
+          <Route path="/profile" component={Profile}/>
+          <Route path="/game" component={Game}/>
       </Switch>
   </BrowserRouter>
 );

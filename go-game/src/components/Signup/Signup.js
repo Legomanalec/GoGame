@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Redirect, Route, Switch} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import './Signup.css';
 
 class Signup extends Component {
@@ -60,8 +60,7 @@ class Signup extends Component {
       if (typeof fields["password"] !== "undefined") {
         if (!fields["password"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
           formIsValid = false;
-          errors["password"] = "*Please enter secure and strong password.\n\
-          At least 8 characters,\n 1 special symbol from @#$%&,\n 1 capital letter, 1 small letter, 1 number";
+          errors["password"] = "*Please enter secure and strong password.\nAt least 8 characters, 1 special symbol from @#$%&,\n 1 capital letter, 1 small letter, 1 number";
         }
       }
 

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './Welcome.css';
-import { Redirect } from 'react-router-dom'
 
 
 class Welcome extends Component {
