@@ -17,7 +17,11 @@ class Signup extends Component {
     };
 
   handleChange(e) {
-        this.setState({[e.target.name]:e.target.value});
+        let fields = this.state.fields;
+        fields[e.target.name] = e.target.value;
+        this.setState({
+          fields
+        });
       }
 
   submituserRegistrationForm(e) {
