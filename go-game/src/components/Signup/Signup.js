@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Redirect, Route, Switch} from 'react-router-dom';
 import './Signup.css';
 
 class Signup extends Component {
@@ -13,8 +12,7 @@ class Signup extends Component {
      redirectToReferrer: false
    }
      this.handleChange = this.handleChange.bind(this);
-     this.submituserRegistrationForm = this.submituserRegistrationForm.bind(this);
-    };
+  };
 
   handleChange(e) {
         let fields = this.state.fields;
@@ -23,20 +21,6 @@ class Signup extends Component {
           fields
         });
       }
-
-  submituserRegistrationForm(e) {
-        e.preventDefault();
-        if (this.validateForm()) {
-            alert("Username: " + this.state.fields["username"] + " Password: " + this.state.fields["password"]);
-            let fields = {};
-            fields["username"] = "";
-            fields["password"] = "";
-            this.setState({fields:fields});
-            alert("Form submitted");
-            this.props.history.push('/');
-        }
-      }
-
 
   validateForm() {
 
@@ -75,29 +59,63 @@ class Signup extends Component {
         return formIsValid;
       }
 
+      resetForm(){
+        let fields = {};
+        fields["username"] = "";
+        fields["password"] = "";
+        this.setState({fields:fields});
+      }
+
+      async doRegister(){
+        if(!this.state.fields["username"]){
+          return;
+        }
+        if(!this.state.fields["password"]){
+          return;
+        }
+        try{
+          if (this.validateForm()) {
+          let res = await fetch('/signup/registered', {
+            method: 'post',
+            headers:{
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              username: this.state.fields["username"],
+              password: this.state.fields["password"],
+              win: 0,
+              lose: 0
+            })
+          });
+          let result = JSON.parse(JSON.stringify(res));
+          if(result){
+            this.resetForm();
+            alert("Form submitted");
+            this.props.history.push('/');
+          }
+        }
+      }
+        catch(e){
+          this.resetForm();
+        }
+      }
+
   render() {
-
-     if (this.state.redirectToReferrer) {
-      return (<Redirect to={'/home'}/>)
-    }
-
-    if(sessionStorage.getItem('userData')){
-      return (<Redirect to={'/home'}/>)
-    }
 
      return (
       <div className="row" id="main-registration-container">
         <div className="medium-5 columns left" id="register">
         <h4>Registration</h4>
-        <form method="post"  name="userRegistrationForm"  onSubmit= {this.submituserRegistrationForm} >
+
         <label>Username </label>
         <input type="text" name="username" placeholder="username" value={this.state.fields.username} onChange={this.handleChange}/><br></br>
         <div style={{ fontSize: 12, color: "red" }} className="errorMsg">{this.state.errors.username}</div>
         <label>Password </label>
         <input type="password" name="password" placeholder="password" value={this.state.fields.password} onChange={this.handleChange}/><br></br>
         <div style={{ fontSize: 12, color: "red" }} className="errorMsg">{this.state.errors.password}</div>
-        <input type="submit" className="button" value="Register"/><br></br>
-        </form>
+        <input type="submit" className="button" value="Register" onClick= {() => this.doRegister()}/><br></br>
+
         <a style={{ fontSize: 12}} href="/" className="button">Home</a><br></br>
         </div>
       </div>

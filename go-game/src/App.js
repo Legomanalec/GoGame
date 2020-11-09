@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Redirect } from 'react-router-dom'
 import Routes from './routes'
+import Signup from './components/Signup/Signup'
 
 class App extends Component {
 
