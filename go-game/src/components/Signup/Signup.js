@@ -88,11 +88,15 @@ class Signup extends Component {
               lose: 0
             })
           });
-          let result = JSON.parse(JSON.stringify(res));
-          if(result){
+          //let result = JSON.parse(JSON.stringify(res));
+          let result = await res.json();
+          if(result && result.success){
             this.resetForm();
-            alert("Form submitted");
-            this.props.history.push('/');
+            alert("Successfully registered");
+          }
+          else if (result && result.success === false) {
+            this.resetForm();
+            alert(result.msg);
           }
         }
       }

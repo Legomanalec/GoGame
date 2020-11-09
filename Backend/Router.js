@@ -19,7 +19,6 @@ class Router{
       var values= [
         [username, password, 0, 0]
       ];
-      // add code here
       var sqlInsert='Insert into user(username, password, win, lose) values ?'
       db.query(sqlInsert,[values], function (err, result) {
         if (err) {
@@ -34,13 +33,6 @@ class Router{
           })
         }
       });
-      db.end(function(err) {
-       if (err) {
-         return console.log(err.message);
-       } else{
-         console.log("Close connection!");
-       }
-     });
     });
   }
 }
