@@ -3,7 +3,11 @@ const bcrypt = require('bcrypt');
 class Router{
   constructor(app, db){
     this.register(app, db);
+    this.login(app, db);
+    this.logout(app, db);
+    this.isloggedIn(app, db);
   }
+
   register(app, db){
     app.post('/signup/registered', (req, res) => {
       let username = req.body.username;
@@ -16,8 +20,9 @@ class Router{
         })
         return;
       }
+      let encryptPass = bcrypt.hashSync(password,9);
       var values= [
-        [username, password, 0, 0]
+        [username, encryptPass, 0, 0]
       ];
       var sqlInsert='Insert into user(username, password, win, lose) values ?'
       db.query(sqlInsert,[values], function (err, result) {
@@ -34,6 +39,54 @@ class Router{
         }
       });
     });
+  }
+
+  login(app, db){
+    app.post('/login/isLogin', (req, res) => {
+      let username = req.body.username;
+      let password = req.body.password;
+
+      let cols = [username];
+      db.query('SELECT * FROM user WHERE username = ? LIMIT 1', cols, (err, data, fields) =>{
+        if (err) {
+          res.json({
+            success: false,
+            msg: 'An error occured, please try again'
+          })
+          return;
+        }
+        if(data && data.length === 1){
+          bcrypt.compare(password, data[0].password, (bcryptErr, verified)=>{
+            if(verified){
+              req.session.UserID = data[0].username;
+              res.json({
+                success: true,
+                username: data[0].username
+              })
+              return;
+            }else{
+              res.json({
+                success: false,
+                msg: 'Invalid password, please check your password'
+              })
+            }
+          })
+        }else{
+          res.json({
+            success: false,
+            msg: 'Login fail, please check your username or password'
+          })
+        }
+      });
+      });
+  }
+
+  logout(app, db){
+
+  }
+
+  isloggedIn(app, db){
+
   }
 }
 

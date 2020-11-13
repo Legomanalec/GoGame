@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
+import UserStore from '../../stores/UserStore';
 import './Login.css';
 import '../../App.css';
 
@@ -30,6 +31,48 @@ class Login extends Component {
     }
   }
 
+  resetForm(){
+    this.setState({
+      username: '',
+      password: '',
+    })
+  }
+
+  async doLogin(){
+    if(!document.getElementById("username").value){
+      return;
+    }
+    if(!document.getElementById("password").value){
+      return;
+    }
+    try{
+      let res = await fetch('/login/isLogin', {
+        method: 'post',
+        headers:{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: document.getElementById("username").value,
+          password: document.getElementById("password").value
+        })
+      });
+      let result = await res.json();
+      if(result && result.success){
+        UserStore.isloggedIn = true;
+        UserStore.username = result.username;
+      }
+      else if (result && result.success === false) {
+        this.resetForm();
+        alert(result.msg);
+      }
+    }
+    catch(e){
+      console.log();
+      this.resetForm();
+    }
+  }
+
   register() {
     this.setState({register: true});
   }
@@ -56,23 +99,20 @@ class Login extends Component {
     }
 
      return (
-      <div className="row" id="Body" onSubmit={this.handleLogin}>
-        <div className="medium-5 columns left">
-        <h4>Login</h4>
-        <form className="form-style-4">
-          <label>Username</label><br></br>
-          <input type="text" id="username" name="username" placeholder="Username" onChange={this.handleChange}/><br></br><br></br>
+       <div className="row" id="Body">
+           <div className="medium-5 columns left">
+           <h4>Login</h4>
+             <label>Username</label><br></br>
+             <input type="text" id="username" name="username" placeholder="Username" onChange={this.handleChange}/><br></br><br></br>
+             <label>Password</label><br></br>
+             <input type="password" id="password" name="password"  placeholder="Password" onChange={this.handleChange}/><br></br><br></br>
+             <input type="submit" className="button" value="Submit" onClick={() => this.doLogin()}/>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button" value="Register" onClick={this.handleRegister}/>
 
-          <label>Password</label><br></br>
-          <input type="password" id="password" name="password"  placeholder="Password" onChange={this.handleChange}/><br></br><br></br>
+           </div>
+         </div>
 
-          <input type="submit" value="Submit"/>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="button" value="Register" onClick={this.handleRegister}/>
-        </form><br></br>
-
-        </div>
-      </div>
     );
   }
 }
