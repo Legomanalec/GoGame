@@ -24,18 +24,14 @@ class Profile extends Component {
 			this.doLogout = this.doLogout.bind(this);
 		}
 
-
 	 renderTableData() {
-      return this.state.Stats.map((Stats, index) => {
-         const {Rank, GamesCount, AccountDate} = Stats
          return (
 
             <tr>
-               <td>{Win}</td>
-               <td>{Lose}</td>
+               <td>{UserStore.win}</td>
+               <td>{UserStore.lose}</td>
             </tr>
          )
-      })
    }
 
    renderTableHeader() {

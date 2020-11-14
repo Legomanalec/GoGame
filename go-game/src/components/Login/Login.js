@@ -63,6 +63,8 @@ class Login extends Component {
       if(result && result.success){
         UserStore.isloggedIn = true;
         UserStore.username = result.username;
+        UserStore.win = result.win;
+        UserStore.lose = result.lose;
         this.setState({redirect: true});
       }
       else if (result && result.success === false) {

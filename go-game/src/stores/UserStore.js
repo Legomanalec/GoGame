@@ -8,7 +8,9 @@ class UserStore {
     extendObservable(this,{
       loading:true,
       isloggedIn: false,
-      username: ''
+      username: '',
+      win: 0,
+      lose: 0
     })
   }
 }
