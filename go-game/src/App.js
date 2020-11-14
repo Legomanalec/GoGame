@@ -44,25 +44,25 @@ class App extends Component {
     }
   }
 
-    async doLogout(){
-      try{
-        let res = await fetch('/login/ Logout', {
-          method: 'post',
-          headers:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        });
-        let result = await res.json();
-        if(result && result.success){
-          UserStore.isloggedIn = false;
-          UserStore.username = '';
-        }
-      }
-      catch(e){
-        console.log(e);
-      }
-    }
+    // async doLogout(){
+    //   try{
+    //     let res = await fetch('/login/logout', {
+    //       method: 'post',
+    //       headers:{
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json'
+    //       }
+    //     });
+    //     let result = await res.json();
+    //     if(result && result.success){
+    //       UserStore.isloggedIn = false;
+    //       UserStore.username = '';
+    //     }
+    //   }
+    //   catch(e){
+    //     console.log(e);
+    //   }
+    // }
 
   render() {
     return (

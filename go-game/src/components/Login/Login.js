@@ -35,6 +35,8 @@ class Login extends Component {
     this.setState({
       username: '',
       password: '',
+      redirect: false,
+      register: false
     })
   }
 
@@ -61,6 +63,7 @@ class Login extends Component {
       if(result && result.success){
         UserStore.isloggedIn = true;
         UserStore.username = result.username;
+        this.setState({redirect: true});
       }
       else if (result && result.success === false) {
         this.resetForm();

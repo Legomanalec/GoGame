@@ -58,10 +58,12 @@ class Router{
         if(data && data.length === 1){
           bcrypt.compare(password, data[0].password, (bcryptErr, verified)=>{
             if(verified){
-              req.session.UserID = data[0].username;
+              //req.session.UserID = data[0].username;
               res.json({
                 success: true,
-                username: data[0].username
+                username: data[0].username,
+                win : data[0].win,
+                lose: data[0].lose
               })
               return;
             }else{
@@ -82,12 +84,48 @@ class Router{
   }
 
   logout(app, db){
-
+    app.post('/login/logout', (req, res) => {
+      if(req.body.username){
+        // req.session.destroy();
+        res.json({
+          success: true
+        })
+      }else {
+        res.json({
+          success: false
+        })
+        return false;
+      }
+  });
   }
 
   isloggedIn(app, db){
+    app.post('/login/isloggedIn', (req, res) => {
+      if(req.session.UserID){
+        let cols = [req.session.UserID];
+        db.query('SELECT * FROM user WHERE username = ? LIMIT 1', cols, (err, data, fields) =>{
+            if(data && data.length === 1){
+              res.json({
+                success: true,
+                username: data[0].username,
+                win : data[0].win,
+                lose: data[0].lose
+              })
+              return true;
+            }else{
+              res.json({
+                success: false
+              })
+            }
+      });
+    }else{
+      res.json({
+        success: false
+      })
+    }
+  });
 
-  }
+}
 }
 
 module.exports = Router;
