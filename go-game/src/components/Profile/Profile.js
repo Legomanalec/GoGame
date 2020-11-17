@@ -2,38 +2,36 @@
 //Alec Meyer Profile
 import React, {Component} from 'react';
 import './Profile.css';
-
+import Login from '../Login/Login.js'
+import { Redirect } from 'react-router-dom'
+import ReactDOM from "react-dom";
+import UserStore from '../../stores/UserStore';
 
 class Profile extends Component {
 	constructor(props) {
         super(props);
 		this.profilePictureRef = React.createRef();
 
-
 		this.state = {
 				Stats: [
 				  {
-						"Rank": 2,
-						"GamesCount": 203,
-						"AccountDate": 2008,
+						"Win": 0,
+						"Lose": 0
 					},
-				]
+				],
+				logout: false
 			};
+			this.doLogout = this.doLogout.bind(this);
 		}
 
-
 	 renderTableData() {
-      return this.state.Stats.map((Stats, index) => {
-         const {Rank, GamesCount, AccountDate} = Stats
          return (
 
             <tr>
-               <td>{Rank}</td>
-               <td>{GamesCount}</td>
-               <td>{AccountDate}</td>
+               <td>{UserStore.win}</td>
+               <td>{UserStore.lose}</td>
             </tr>
          )
-      })
    }
 
    renderTableHeader() {
@@ -43,14 +41,20 @@ class Profile extends Component {
       })
    }
 
-
+	 doLogout(){
+	 	this.setState({logout: true});
+	 }
 
 render() {
+
+	if (this.state.logout){
+		return (<Redirect to={'/login'}/>)
+	}
 
 return (
 	<div className="row">
 		<div className="medium-12 columns">
-			<h2 id="welcomeText">Profile</h2>
+			<h2 id="welcomeText">Profile: {UserStore.username}</h2>
 			<img src="pfp.png" alt="PFP place holder"></img>
 			<table id='Stats'>
 			   <tbody>
@@ -58,6 +62,7 @@ return (
 				  {this.renderTableData()}
 			   </tbody>
 			</table>
+			<input type="submit" className="button" value="logout" onClick={this.doLogout}/>
 		</div>
 	</div>
 );
