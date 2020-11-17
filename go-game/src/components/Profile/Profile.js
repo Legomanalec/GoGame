@@ -46,7 +46,6 @@ class Profile extends Component {
 	 }
 
 render() {
-  const { redirect } = this.setState;
 
 	if (this.state.logout){
 		return (<Redirect to={'/login'}/>)
