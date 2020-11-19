@@ -19,10 +19,59 @@ class Profile extends Component {
 						"Lose": 0
 					},
 				],
-				logout: false
+				logout: false,
+
+				//picture upload
+				picture: false,
+				src: false
 			};
 			this.doLogout = this.doLogout.bind(this);
 		}
+
+		//picture upload
+		handlePictureSelected(event) {
+		    var picture = event.target.files[0];
+		    var src     = URL.createObjectURL(picture);
+
+		    this.setState({
+		      picture: picture,
+		      src: src
+		    });
+		  }
+			renderPreview() {
+		    if(this.state.src) {
+		      return (
+		        <img src={this.state.src} height = "200" width = "200"/>
+
+		      );
+		    } else {
+		      return (
+		        <p>
+		          No Preview
+		        </p>
+		      );
+		    }
+		  }
+
+			upload() {
+		    var formData = new FormData();
+
+		    formData.append("file", this.state.picture);
+
+		    $.ajax({
+		      url: "/some/api/endpoint",
+		      method: "POST",
+		      data: formData,
+		      cache: false,
+		      contentType: false,
+		      processData: false,
+		      success: function(response) {
+		        // Code to handle a succesful upload
+		      }
+		    });
+		  }
+
+
 
 	 renderTableData() {
          return (
@@ -55,7 +104,26 @@ return (
 	<div className="row">
 		<div className="medium-12 columns">
 			<h2 id="welcomeText">Profile: {UserStore.username}</h2>
-			<img src="pfp.png" alt="PFP place holder"></img>
+
+			<div>
+        <input
+          type="file"
+          onChange={this.handlePictureSelected.bind(this)}
+        />
+        <br/>
+        <div>
+        {this.renderPreview()}
+        </div>
+        <hr/>
+        <button
+          onClick={this.upload.bind(this)}
+        >
+          Upload
+        </button>
+      </div>
+
+
+
 			<table id='Stats'>
 			   <tbody>
 			   <tr>{this.renderTableHeader()}</tr>
