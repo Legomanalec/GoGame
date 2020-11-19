@@ -6,7 +6,7 @@ import Login from '../Login/Login.js'
 import { Redirect } from 'react-router-dom'
 import ReactDOM from "react-dom";
 import UserStore from '../../stores/UserStore';
-
+import $ from 'jquery';
 class Profile extends Component {
 	constructor(props) {
         super(props);
